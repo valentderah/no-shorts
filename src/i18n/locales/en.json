@@ -1,0 +1,47 @@
+{
+  "app": {
+    "name": "No Shorts",
+    "description": "Block short videos"
+  },
+  "popup": {
+    "title": "🚫 No Shorts",
+    "subtitle": "Block short videos",
+    "mainToggle": "Main blocking",
+    "settingsLink": "Settings",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "options": {
+    "title": "🚫 No Shorts",
+    "subtitle": "Short video blocking settings",
+    "generalSettings": "General settings",
+    "enableBlocking": "Enable blocking",
+    "enableBlockingDesc": "Main toggle for all platforms",
+    "platforms": "Platforms",
+    "saveButton": "Save settings",
+    "saveMessage": "Settings saved!"
+  },
+  "platforms": {
+    "youtube": {
+      "name": "YouTube Shorts",
+      "description": "Blocks Shorts section and hides navigation"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "description": "Blocks entire TikTok domain"
+    },
+    "vk": {
+      "name": "VK Clips",
+      "description": "Blocks Clips section and hides navigation"
+    },
+    "instagram": {
+      "name": "Instagram Reels",
+      "description": "Blocks Reels section and hides navigation"
+    }
+  },
+  "blocker": {
+    "title": "🚫 Access to short video section is blocked",
+    "message": "This extension helps you focus on more productive content."
+  }
+}
+
