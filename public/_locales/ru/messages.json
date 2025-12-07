@@ -1,0 +1,59 @@
+{
+  "appName": {
+    "message": "No Shorts",
+    "description": "Название расширения"
+  },
+  "appDescription": {
+    "message": "Блокировка коротких видео",
+    "description": "Описание расширения"
+  },
+  "popupTitle": {
+    "message": "🚫 No Shorts",
+    "description": "Заголовок popup"
+  },
+  "popupSubtitle": {
+    "message": "Блокировка коротких видео",
+    "description": "Подзаголовок popup"
+  },
+  "popupMainToggle": {
+    "message": "Общая блокировка",
+    "description": "Главный переключатель"
+  },
+  "popupSettingsLink": {
+    "message": "Настройки",
+    "description": "Ссылка на настройки"
+  },
+  "popupEnabled": {
+    "message": "Включено",
+    "description": "Статус включено"
+  },
+  "popupDisabled": {
+    "message": "Выключено",
+    "description": "Статус выключено"
+  },
+  "platformYoutube": {
+    "message": "YouTube Shorts",
+    "description": "Название платформы YouTube"
+  },
+  "platformTiktok": {
+    "message": "TikTok",
+    "description": "Название платформы TikTok"
+  },
+  "platformVk": {
+    "message": "VK Клипы",
+    "description": "Название платформы VK"
+  },
+  "platformInstagram": {
+    "message": "Instagram Reels",
+    "description": "Название платформы Instagram"
+  },
+  "blockerTitle": {
+    "message": "🚫 Доступ к разделу коротких видео заблокирован",
+    "description": "Заголовок страницы блокировки"
+  },
+  "blockerMessage": {
+    "message": "Это расширение помогает вам сосредоточиться на более продуктивном контенте.",
+    "description": "Сообщение на странице блокировки"
+  }
+}
+

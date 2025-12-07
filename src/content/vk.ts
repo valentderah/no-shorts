@@ -1,6 +1,5 @@
-import { blockPage, shouldBlockPage } from './shared/page-blocker';
-import { observeAndClean, Selectors } from './shared/dom-cleaner';
-import { isPlatformEnabled } from '../storage/settings';
+import { Selectors } from './shared/dom-cleaner';
+import { initContentScript } from './shared/content-init';
 
 const VK_SELECTORS: Selectors = {
   navigation: [
@@ -21,39 +20,9 @@ const VK_SELECTORS: Selectors = {
   ],
 };
 
-async function init(): Promise<void> {
-  const url = window.location.href;
-  const enabled = await isPlatformEnabled('vk');
-
-  if (!enabled) {
-    return;
-  }
-
-  if (shouldBlockPage(url, 'vk')) {
-    blockPage();
-    return;
-  }
-
-  const startCleaning = () => {
-    if (document.body) {
-      observeAndClean(VK_SELECTORS);
-    } else {
-      const observer = new MutationObserver((mutations, obs) => {
-        if (document.body) {
-          obs.disconnect();
-          observeAndClean(VK_SELECTORS);
-        }
-      });
-      observer.observe(document.documentElement, { childList: true });
-    }
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startCleaning);
-  } else {
-    startCleaning();
-  }
-}
-
-init();
+initContentScript({
+  platform: 'vk',
+  pathnamePatterns: ['/clips'],
+  selectors: VK_SELECTORS,
+});
 

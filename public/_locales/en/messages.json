@@ -1,0 +1,59 @@
+{
+  "appName": {
+    "message": "No Shorts",
+    "description": "Extension name"
+  },
+  "appDescription": {
+    "message": "Block short videos",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "🚫 No Shorts",
+    "description": "Popup title"
+  },
+  "popupSubtitle": {
+    "message": "Block short videos",
+    "description": "Popup subtitle"
+  },
+  "popupMainToggle": {
+    "message": "Main blocking",
+    "description": "Main toggle"
+  },
+  "popupSettingsLink": {
+    "message": "Settings",
+    "description": "Settings link"
+  },
+  "popupEnabled": {
+    "message": "Enabled",
+    "description": "Enabled status"
+  },
+  "popupDisabled": {
+    "message": "Disabled",
+    "description": "Disabled status"
+  },
+  "platformYoutube": {
+    "message": "YouTube Shorts",
+    "description": "YouTube platform name"
+  },
+  "platformTiktok": {
+    "message": "TikTok",
+    "description": "TikTok platform name"
+  },
+  "platformVk": {
+    "message": "VK Clips",
+    "description": "VK platform name"
+  },
+  "platformInstagram": {
+    "message": "Instagram Reels",
+    "description": "Instagram platform name"
+  },
+  "blockerTitle": {
+    "message": "🚫 Access to short video section is blocked",
+    "description": "Blocker page title"
+  },
+  "blockerMessage": {
+    "message": "This extension helps you focus on more productive content.",
+    "description": "Blocker page message"
+  }
+}
+
