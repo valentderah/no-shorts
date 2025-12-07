@@ -1,3 +1,7 @@
+<div>
+  <a href="README.md">English</a> | Русский
+</div>
+
 # No Shorts
 
 Браузерное расширение для блокировки коротких видео на YouTube, TikTok, VK и Instagram.
