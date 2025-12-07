@@ -38,7 +38,18 @@ export function observeAndClean(
 ): MutationObserver {
   const clean = () => {
     hideElements(selectors.navigation);
-    hideElements(selectors.feed);
+    
+    const isYouPage = window.location.pathname === '/feed/you';
+    const isYouTube = window.location.hostname.includes('youtube.com');
+    
+    if (isYouTube && isYouPage) {
+      const feedSelectorsWithoutCards = selectors.feed.filter(selector => 
+        !selector.includes('ytd-rich-item-renderer')
+      );
+      hideElements(feedSelectorsWithoutCards);
+    } else {
+      hideElements(selectors.feed);
+    }
     
     const guideEntries = document.querySelectorAll('ytd-guide-entry-renderer');
     guideEntries.forEach((entry) => {
@@ -48,16 +59,20 @@ export function observeAndClean(
       }
     });
     
-    const richShelves = document.querySelectorAll('ytd-rich-shelf-renderer');
-    richShelves.forEach((shelf) => {
-      const titleElement = shelf.querySelector('span#title');
-      if (titleElement && titleElement.textContent?.trim() === 'Shorts') {
-        (shelf as HTMLElement).style.display = 'none';
-      }
-      if (shelf.hasAttribute('is-shorts')) {
-        (shelf as HTMLElement).style.display = 'none';
-      }
-    });
+    const isYouTubeWatchPage = window.location.hostname.includes('youtube.com') && 
+                               window.location.pathname.startsWith('/watch');
+    if (!isYouTubeWatchPage) {
+      const richShelves = document.querySelectorAll('ytd-rich-shelf-renderer');
+      richShelves.forEach((shelf) => {
+        const titleElement = shelf.querySelector('span#title');
+        if (titleElement && titleElement.textContent?.trim() === 'Shorts') {
+          (shelf as HTMLElement).style.display = 'none';
+        }
+        if (shelf.hasAttribute('is-shorts')) {
+          (shelf as HTMLElement).style.display = 'none';
+        }
+      });
+    }
     
     onClean();
   };

@@ -63,13 +63,25 @@ export function blockPage(): void {
 }
 
 export function shouldBlockPage(url: string, platform: 'youtube' | 'tiktok' | 'vk' | 'instagram'): boolean {
-  const patterns: Record<string, RegExp> = {
-    youtube: /^https?:\/\/[^/]+\.youtube\.com\/shorts(\/|$)/,
-    tiktok: /^https?:\/\/[^/]+\.tiktok\.com\//,
-    vk: /^https?:\/\/vk\.com\/clips(\/|$)/,
-    instagram: /^https?:\/\/[^/]+\.instagram\.com\/reels(\/|$)/,
+  const patterns: Record<string, string[]> = {
+    youtube: ['^https?://[^/]+\\.youtube\\.com/shorts(/|$)'],
+    tiktok: ['^https?://[^/]+\\.tiktok\\.com/'],
+    vk: [
+      '^https?://vk\\.com/clips(/|$)',
+      '^https?://vk\\.ru/clips(/|$)',
+      '^https?://vkvideo\\.ru/clip-',
+    ],
+    instagram: ['^https?://[^/]+\\.instagram\\.com/reels(/|$)'],
   };
 
-  return patterns[platform]?.test(url) ?? false;
+  const platformPatterns = patterns[platform];
+  if (!platformPatterns) {
+    return false;
+  }
+
+  return platformPatterns.some(pattern => {
+    const regex = new RegExp(pattern);
+    return regex.test(url);
+  });
 }
 

@@ -14,10 +14,7 @@ const YOUTUBE_SELECTORS: Selectors = {
   feed: [
     'ytd-reel-shelf-renderer',
     'ytd-shorts[class*="shorts"]',
-    'ytd-item-section-renderer:has(ytd-reel-shelf-renderer)',
-    'ytd-rich-section-renderer:has(ytd-reel-shelf-renderer)',
     'ytd-rich-shelf-renderer[is-shorts]',
-    'ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])',
     'ytd-rich-item-renderer:has(ytm-shorts-lockup-view-model)',
   ],
 };
@@ -31,16 +28,19 @@ function customCleanup(): void {
     }
   });
   
-  const richShelves = document.querySelectorAll('ytd-rich-shelf-renderer');
-  richShelves.forEach((shelf) => {
-    const titleElement = shelf.querySelector('span#title');
-    if (titleElement && titleElement.textContent?.trim() === 'Shorts') {
-      (shelf as HTMLElement).style.display = 'none';
-    }
-    if (shelf.hasAttribute('is-shorts')) {
-      (shelf as HTMLElement).style.display = 'none';
-    }
-  });
+  const isWatchPage = window.location.pathname.startsWith('/watch');
+  if (!isWatchPage) {
+    const richShelves = document.querySelectorAll('ytd-rich-shelf-renderer');
+    richShelves.forEach((shelf) => {
+      const titleElement = shelf.querySelector('span#title');
+      if (titleElement && titleElement.textContent?.trim() === 'Shorts') {
+        (shelf as HTMLElement).style.display = 'none';
+      }
+      if (shelf.hasAttribute('is-shorts')) {
+        (shelf as HTMLElement).style.display = 'none';
+      }
+    });
+  }
 }
 
 initContentScript({

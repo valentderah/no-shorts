@@ -17,6 +17,8 @@ const VK_SELECTORS: Selectors = {
     'a[href*="/clip-"]',
     '[data-testid="clips-compact-preview"]',
     '.short_video_item',
+    'div[class*="HorizontalScrollBlock__container"][data-block="block"]',
+    'div[class*="HorizontalScrollBlock__container"]:has(a[href^="clip-"])',
   ],
 };
 
