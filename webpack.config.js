@@ -4,10 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
     'background/service-worker': './src/background/service-worker.ts',
-    'content/youtube': './src/content/youtube.ts',
-    'content/tiktok': './src/content/tiktok.ts',
-    'content/vk': './src/content/vk.ts',
-    'content/instagram': './src/content/instagram.ts',
+    'content/youtube': './src/content/platforms/youtube.ts',
+    'content/tiktok': './src/content/platforms/tiktok.ts',
+    'content/vk': './src/content/platforms/vk.ts',
+    'content/instagram': './src/content/platforms/instagram.ts',
     'popup/popup': './src/popup/popup.ts',
   },
   output: {

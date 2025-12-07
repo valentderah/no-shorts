@@ -7,18 +7,19 @@ chrome.runtime.onInstalled.addListener(async () => {
   }
 });
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === 'getSettings') {
     chrome.storage.sync.get(['settings'], (result) => {
-      sendResponse(result.settings || DEFAULT_SETTINGS);
+      sendResponse(result.settings ?? DEFAULT_SETTINGS);
     });
     return true;
   }
+  return false;
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
   if (areaName === 'sync' && changes.settings) {
-    chrome.tabs.query({}, (tabs) => {
+    chrome.tabs.query({}).then((tabs) => {
       tabs.forEach((tab) => {
         if (tab.id) {
           chrome.tabs.sendMessage(tab.id, {
@@ -28,6 +29,7 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
           });
         }
       });
+    }).catch(() => {
     });
   }
 });

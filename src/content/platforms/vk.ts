@@ -1,5 +1,5 @@
-import { Selectors } from './shared/dom-cleaner';
-import { initContentScript } from './shared/content-init';
+import { hideElements, Selectors } from '../shared/dom-cleaner';
+import { initContentScript } from '../shared/content-init';
 
 const VK_SELECTORS: Selectors = {
   navigation: [
@@ -22,9 +22,14 @@ const VK_SELECTORS: Selectors = {
   ],
 };
 
+function cleanup(): void {
+  hideElements(VK_SELECTORS.navigation);
+  hideElements(VK_SELECTORS.feed);
+}
+
 initContentScript({
   platform: 'vk',
   pathnamePatterns: ['/clips'],
-  selectors: VK_SELECTORS,
+  cleanup,
 });
 

@@ -1,3 +1,5 @@
+export type Platform = 'youtube' | 'tiktok' | 'vk' | 'instagram';
+
 export interface PlatformSettings {
   youtube: boolean;
   tiktok: boolean;

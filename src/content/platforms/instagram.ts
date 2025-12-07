@@ -1,5 +1,5 @@
-import { Selectors } from './shared/dom-cleaner';
-import { initContentScript } from './shared/content-init';
+import { hideElements, Selectors } from '../shared/dom-cleaner';
+import { initContentScript } from '../shared/content-init';
 
 const INSTAGRAM_SELECTORS: Selectors = {
   navigation: [
@@ -15,9 +15,14 @@ const INSTAGRAM_SELECTORS: Selectors = {
   ],
 };
 
+function cleanup(): void {
+  hideElements(INSTAGRAM_SELECTORS.navigation);
+  hideElements(INSTAGRAM_SELECTORS.feed);
+}
+
 initContentScript({
   platform: 'instagram',
   pathnamePatterns: ['/reels'],
-  selectors: INSTAGRAM_SELECTORS,
+  cleanup,
 });
 

@@ -4,79 +4,20 @@ export interface Selectors {
 }
 
 export function hideElements(selectors: string[]): void {
-  selectors.forEach((selector) => {
+  for (const selector of selectors) {
     try {
       const elements = document.querySelectorAll(selector);
       elements.forEach((element) => {
         (element as HTMLElement).style.display = 'none';
       });
-    } catch (error) {
-      console.debug(`Selector error: ${selector}`, error);
+    } catch {
     }
-  });
-}
-
-export function hideElementsByText(selectors: string[], text: string): void {
-  selectors.forEach((selector) => {
-    try {
-      const elements = document.querySelectorAll(selector);
-      elements.forEach((element) => {
-        const titleElement = element.querySelector('yt-formatted-string.title');
-        if (titleElement && titleElement.textContent?.trim() === text) {
-          (element as HTMLElement).style.display = 'none';
-        }
-      });
-    } catch (error) {
-      console.debug(`Selector error: ${selector}`, error);
-    }
-  });
+  }
 }
 
 export function observeAndClean(
-  selectors: Selectors,
-  onClean: () => void = () => {}
+  clean: () => void
 ): MutationObserver {
-  const clean = () => {
-    hideElements(selectors.navigation);
-    
-    const isYouPage = window.location.pathname === '/feed/you';
-    const isYouTube = window.location.hostname.includes('youtube.com');
-    
-    if (isYouTube && isYouPage) {
-      const feedSelectorsWithoutCards = selectors.feed.filter(selector => 
-        !selector.includes('ytd-rich-item-renderer')
-      );
-      hideElements(feedSelectorsWithoutCards);
-    } else {
-      hideElements(selectors.feed);
-    }
-    
-    const guideEntries = document.querySelectorAll('ytd-guide-entry-renderer');
-    guideEntries.forEach((entry) => {
-      const titleElement = entry.querySelector('yt-formatted-string.title');
-      if (titleElement && titleElement.textContent?.trim() === 'Shorts') {
-        (entry as HTMLElement).style.display = 'none';
-      }
-    });
-    
-    const isYouTubeWatchPage = window.location.hostname.includes('youtube.com') && 
-                               window.location.pathname.startsWith('/watch');
-    if (!isYouTubeWatchPage) {
-      const richShelves = document.querySelectorAll('ytd-rich-shelf-renderer');
-      richShelves.forEach((shelf) => {
-        const titleElement = shelf.querySelector('span#title');
-        if (titleElement && titleElement.textContent?.trim() === 'Shorts') {
-          (shelf as HTMLElement).style.display = 'none';
-        }
-        if (shelf.hasAttribute('is-shorts')) {
-          (shelf as HTMLElement).style.display = 'none';
-        }
-      });
-    }
-    
-    onClean();
-  };
-
   clean();
 
   const observer = new MutationObserver((mutations) => {
@@ -100,17 +41,3 @@ export function observeAndClean(
 
   return observer;
 }
-
-export function removeElements(selectors: string[]): void {
-  selectors.forEach((selector) => {
-    try {
-      const elements = document.querySelectorAll(selector);
-      elements.forEach((element) => {
-        element.remove();
-      });
-    } catch (error) {
-      console.debug(`Selector error: ${selector}`, error);
-    }
-  });
-}
-
