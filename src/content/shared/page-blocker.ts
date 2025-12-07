@@ -19,17 +19,21 @@ export function blockPage(): void {
           justify-content: center;
           align-items: center;
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: #000;
           color: #fff;
         }
         .blocker-container {
           text-align: center;
           padding: 2rem;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
+          background: #2a2a2a;
           border-radius: 20px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
           max-width: 500px;
+        }
+        .blocker-icon {
+          font-size: 4rem;
+          margin-bottom: 1rem;
+          display: block;
         }
         h1 {
           font-size: 2rem;
@@ -45,6 +49,7 @@ export function blockPage(): void {
     </head>
     <body>
       <div class="blocker-container">
+        <span class="blocker-icon">🚫</span>
         <h1>${t('blockerTitle')}</h1>
         <p>${t('blockerMessage')}</p>
       </div>

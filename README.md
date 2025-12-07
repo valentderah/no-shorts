@@ -30,16 +30,3 @@ Browser extension to block short video content (Shorts/Reels/Clips) on YouTube, 
 4. Open Chrome/Edge extensions page (`chrome://extensions`)
 5. Enable "Developer mode"
 6. Click "Load unpacked extension" and select the `dist` folder
-
-### Development
-
-```bash
-# Development mode with watch
-npm run dev
-
-# Production build
-npm run build
-
-# Clean build directory
-npm run clean
-```

@@ -48,11 +48,11 @@
     "description": "Instagram platform name"
   },
   "blockerTitle": {
-    "message": "🚫 Access to short video section is blocked",
+    "message": "No-no-no, Mr. Shorts",
     "description": "Blocker page title"
   },
   "blockerMessage": {
-    "message": "This extension helps you focus on more productive content.",
+    "message": "The «No Shorts» extension has blocked access to this short video.",
     "description": "Blocker page message"
   }
 }
