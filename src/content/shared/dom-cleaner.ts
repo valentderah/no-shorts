@@ -4,15 +4,14 @@ export interface Selectors {
 }
 
 export function hideElements(selectors: string[]): void {
-  for (const selector of selectors) {
+  selectors.forEach((selector) => {
     try {
-      const elements = document.querySelectorAll(selector);
-      elements.forEach((element) => {
+      document.querySelectorAll(selector).forEach((element) => {
         (element as HTMLElement).style.display = 'none';
       });
     } catch {
     }
-  }
+  });
 }
 
 export function observeAndClean(

@@ -21,4 +21,3 @@ export const DEFAULT_SETTINGS: Settings = {
     instagram: true,
   },
 };
-

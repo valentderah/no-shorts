@@ -17,7 +17,15 @@ const BLOCK_PATTERNS: Record<Platform, RegExp[]> = {
   instagram: [/^https?:\/\/[^/]+\.instagram\.com\/reels(\/|$)/],
 };
 
+async function incrementBlockedCount(): Promise<void> {
+  const result = await chrome.storage.local.get(['blockedCount']);
+  const currentCount = result.blockedCount ?? 0;
+  await chrome.storage.local.set({ blockedCount: currentCount + 1 });
+}
+
 function blockPage(): void {
+  incrementBlockedCount();
+
   const blockerHTML = `
     <!DOCTYPE html>
     <html>
@@ -128,4 +136,3 @@ export function createPageGuard(options: PageGuardOptions) {
     setupHistoryInterception,
   };
 }
-

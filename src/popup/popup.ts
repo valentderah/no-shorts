@@ -1,7 +1,25 @@
 import { getSettings, saveSettings } from '../storage/settings';
 import { Settings } from '../types/settings';
-import { t } from '../i18n';
 import './popup.css';
+
+const PLATFORM_NAMES: Record<string, string> = {
+  youtube: 'YouTube Shorts',
+  tiktok: 'TikTok',
+  vk: 'VK Clips',
+  instagram: 'Instagram Reels',
+};
+
+const PLATFORM_ICONS: Record<string, string> = {
+  youtube: 'popup/icons/youtube.svg',
+  tiktok: 'popup/icons/tiktok.svg',
+  vk: 'popup/icons/vk.svg',
+  instagram: 'popup/icons/instagram.svg',
+};
+
+async function getBlockedCount(): Promise<number> {
+  const result = await chrome.storage.local.get(['blockedCount']);
+  return result.blockedCount ?? 0;
+}
 
 function createToggleSwitch(
   checked: boolean,
@@ -21,41 +39,46 @@ function createToggleSwitch(
 
 async function renderPopup(): Promise<void> {
   const settings = await getSettings();
-  
-  const titleEl = document.querySelector('.header h1');
-  if (titleEl) titleEl.textContent = t('popupTitle');
-  
-  const subtitleEl = document.querySelector('.header p');
-  if (subtitleEl) subtitleEl.textContent = t('popupSubtitle');
-  
-  const toggleLabel = document.querySelector('.toggle-label');
-  if (toggleLabel) toggleLabel.textContent = t('popupMainToggle');
-  
-  const mainToggle = document.getElementById('mainToggle');
-  if (mainToggle) {
-    mainToggle.className = `toggle-switch ${settings.enabled ? 'active' : ''}`;
-    mainToggle.addEventListener('click', async () => {
-      const newSettings: Settings = {
-        ...settings,
-        enabled: !settings.enabled,
-      };
-      await saveSettings(newSettings);
-      renderPopup();
-    });
+  const blockedCount = await getBlockedCount();
+
+  const blockedCountEl = document.getElementById('blockedCount');
+  if (blockedCountEl) {
+    blockedCountEl.textContent = blockedCount.toString();
   }
 
   const platformsList = document.getElementById('platformsList');
   if (platformsList) {
     platformsList.innerHTML = '';
     
-    Object.entries(settings.platforms).forEach(([platform, enabled]) => {
+    const platforms = [
+      { key: 'youtube', name: PLATFORM_NAMES.youtube, icon: PLATFORM_ICONS.youtube },
+      { key: 'tiktok', name: PLATFORM_NAMES.tiktok, icon: PLATFORM_ICONS.tiktok },
+      { key: 'vk', name: PLATFORM_NAMES.vk, icon: PLATFORM_ICONS.vk },
+      { key: 'instagram', name: PLATFORM_NAMES.instagram, icon: PLATFORM_ICONS.instagram },
+    ];
+
+    platforms.forEach(({ key, name, icon }) => {
+      const enabled = settings.platforms[key as keyof typeof settings.platforms];
+      
       const item = document.createElement('div');
       item.className = 'platform-item';
       
-      const name = document.createElement('span');
-      name.className = 'platform-name';
-      const platformKey = `platform${platform.charAt(0).toUpperCase() + platform.slice(1)}`;
-      name.textContent = t(platformKey);
+      const content = document.createElement('div');
+      content.className = 'platform-content';
+      
+      const iconEl = document.createElement('img');
+      iconEl.className = 'platform-icon';
+      iconEl.src = icon;
+      iconEl.alt = name;
+      iconEl.width = 24;
+      iconEl.height = 24;
+      
+      const nameEl = document.createElement('span');
+      nameEl.className = 'platform-name';
+      nameEl.textContent = name;
+      
+      content.appendChild(iconEl);
+      content.appendChild(nameEl);
       
       const toggle = createToggleSwitch(
         enabled && settings.enabled,
@@ -64,7 +87,7 @@ async function renderPopup(): Promise<void> {
             ...settings,
             platforms: {
               ...settings.platforms,
-              [platform]: checked,
+              [key]: checked,
             },
           };
           await saveSettings(newSettings);
@@ -76,13 +99,20 @@ async function renderPopup(): Promise<void> {
         toggle.classList.add('disabled');
       }
       
-      item.appendChild(name);
+      item.appendChild(content);
       item.appendChild(toggle);
       platformsList.appendChild(item);
     });
   }
-
 }
 
 document.addEventListener('DOMContentLoaded', renderPopup);
 
+chrome.storage.onChanged.addListener((changes) => {
+  if (changes.blockedCount) {
+    const blockedCountEl = document.getElementById('blockedCount');
+    if (blockedCountEl) {
+      blockedCountEl.textContent = (changes.blockedCount.newValue ?? 0).toString();
+    }
+  }
+});

@@ -41,4 +41,3 @@ export async function initContentScript(options: ContentInitOptions): Promise<vo
     startCleaning();
   }
 }
-
