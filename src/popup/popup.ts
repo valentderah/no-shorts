@@ -1,12 +1,13 @@
 import { getSettings, saveSettings } from '../storage/settings';
 import { Settings } from '../types/settings';
+import { t } from '../i18n';
 import './popup.css';
 
-const PLATFORM_NAMES: Record<string, string> = {
-  youtube: 'YouTube Shorts',
-  tiktok: 'TikTok',
-  vk: 'VK Clips',
-  instagram: 'Instagram Reels',
+const PLATFORM_NAME_KEYS: Record<string, string> = {
+  youtube: 'platformYoutube',
+  tiktok: 'platformTiktok',
+  vk: 'platformVk',
+  instagram: 'platformInstagram',
 };
 
 const PLATFORM_ICONS: Record<string, string> = {
@@ -19,6 +20,13 @@ const PLATFORM_ICONS: Record<string, string> = {
 async function getBlockedCount(): Promise<number> {
   const result = await chrome.storage.local.get(['blockedCount']);
   return result.blockedCount ?? 0;
+}
+
+function formatBlockedCount(count: number): string {
+  if (count === 1) {
+    return `1 ${t('popupTime')}`;
+  }
+  return `${count} ${t('popupTimes')}`;
 }
 
 function createToggleSwitch(
@@ -43,7 +51,7 @@ async function renderPopup(): Promise<void> {
 
   const blockedCountEl = document.getElementById('blockedCount');
   if (blockedCountEl) {
-    blockedCountEl.textContent = blockedCount.toString();
+    blockedCountEl.textContent = formatBlockedCount(blockedCount);
   }
 
   const platformsList = document.getElementById('platformsList');
@@ -51,14 +59,15 @@ async function renderPopup(): Promise<void> {
     platformsList.innerHTML = '';
     
     const platforms = [
-      { key: 'youtube', name: PLATFORM_NAMES.youtube, icon: PLATFORM_ICONS.youtube },
-      { key: 'tiktok', name: PLATFORM_NAMES.tiktok, icon: PLATFORM_ICONS.tiktok },
-      { key: 'vk', name: PLATFORM_NAMES.vk, icon: PLATFORM_ICONS.vk },
-      { key: 'instagram', name: PLATFORM_NAMES.instagram, icon: PLATFORM_ICONS.instagram },
+      { key: 'youtube', nameKey: PLATFORM_NAME_KEYS.youtube, icon: PLATFORM_ICONS.youtube },
+      { key: 'tiktok', nameKey: PLATFORM_NAME_KEYS.tiktok, icon: PLATFORM_ICONS.tiktok },
+      { key: 'vk', nameKey: PLATFORM_NAME_KEYS.vk, icon: PLATFORM_ICONS.vk },
+      { key: 'instagram', nameKey: PLATFORM_NAME_KEYS.instagram, icon: PLATFORM_ICONS.instagram },
     ];
 
-    platforms.forEach(({ key, name, icon }) => {
+    platforms.forEach(({ key, nameKey, icon }) => {
       const enabled = settings.platforms[key as keyof typeof settings.platforms];
+      const name = t(nameKey);
       
       const item = document.createElement('div');
       item.className = 'platform-item';
@@ -106,13 +115,25 @@ async function renderPopup(): Promise<void> {
   }
 }
 
-document.addEventListener('DOMContentLoaded', renderPopup);
+function initI18n(): void {
+  document.querySelectorAll('[data-i18n]').forEach((element) => {
+    const key = element.getAttribute('data-i18n');
+    if (key) {
+      element.textContent = t(key);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initI18n();
+  renderPopup();
+});
 
 chrome.storage.onChanged.addListener((changes) => {
   if (changes.blockedCount) {
     const blockedCountEl = document.getElementById('blockedCount');
     if (blockedCountEl) {
-      blockedCountEl.textContent = (changes.blockedCount.newValue ?? 0).toString();
+      blockedCountEl.textContent = formatBlockedCount(changes.blockedCount.newValue ?? 0);
     }
   }
 });

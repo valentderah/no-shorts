@@ -23,7 +23,7 @@ body {
 .app-title {
   font-size: 20px;
   font-weight: 600;
-  color: #111;
+  color: #000;
 }
 
 .telegram-link {
@@ -57,7 +57,7 @@ body {
 .stats-label {
   font-size: 16px;
   font-weight: 600;
-  color: #666;
+  color: #000;
   margin-bottom: 8px;
 }
 

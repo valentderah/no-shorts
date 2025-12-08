@@ -54,6 +54,22 @@
   "blockerMessage": {
     "message": "The «No Shorts» extension has blocked access to this short video.",
     "description": "Blocker page message"
+  },
+  "popupBlocked": {
+    "message": "Blocked",
+    "description": "Blocked label"
+  },
+  "popupPlatforms": {
+    "message": "Platforms",
+    "description": "Platforms label"
+  },
+  "popupTime": {
+    "message": "Time",
+    "description": "Time (singular)"
+  },
+  "popupTimes": {
+    "message": "Times",
+    "description": "Times (plural)"
   }
 }
 
