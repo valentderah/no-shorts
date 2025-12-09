@@ -8,7 +8,7 @@ module.exports = {
     'content/tiktok': './src/content/platforms/tiktok.ts',
     'content/vk': './src/content/platforms/vk.ts',
     'content/instagram': './src/content/platforms/instagram.ts',
-    'popup/popup': './src/popup/popup.ts',
+    'popup/popup': './src/popup/popup.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -23,8 +23,20 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(css|scss|sass)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              api: 'modern',
+              sassOptions: {
+                silenceDeprecations: ['legacy-js-api'],
+              },
+            },
+          },
+        ],
       },
     ],
   },

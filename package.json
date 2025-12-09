@@ -17,12 +17,20 @@
   ],
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
     "rimraf": "^5.0.5",
+    "sass": "^1.69.0",
+    "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",

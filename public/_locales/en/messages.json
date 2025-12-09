@@ -62,14 +62,6 @@
   "popupPlatforms": {
     "message": "Platforms",
     "description": "Platforms label"
-  },
-  "popupTime": {
-    "message": "Time",
-    "description": "Time (singular)"
-  },
-  "popupTimes": {
-    "message": "Times",
-    "description": "Times (plural)"
   }
 }
 

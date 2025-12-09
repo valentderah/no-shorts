@@ -1,0 +1,191 @@
+@use "sass:math";
+
+$font-family: 'Karla', sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+$color-black: #000;
+$color-text: #111;
+$color-gray: #999;
+$color-border: #f0f0f0;
+$color-white: #fff;
+$color-toggle-bg: #ddd;
+$color-toggle-active: #0077FF;
+
+$spacing-main: 16px;
+$spacing-horizontal: 24px;
+$spacing-small: 8px;
+$spacing-medium: 12px;
+
+$popup-width: 375px;
+$font-size-title: 20px;
+$font-size-base: 16px;
+$font-size-count: 64px;
+
+$toggle-width: 44px;
+$toggle-height: 24px;
+$toggle-circle-size: 20px;
+$toggle-circle-offset: 2px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700;800&display=swap');
+
+body {
+  width: $popup-width;
+  padding: 0;
+  font-family: $font-family;
+  background: $color-white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-main $spacing-horizontal;
+}
+
+.app-title {
+  font-size: $font-size-title;
+  font-weight: $font-weight-semibold;
+  color: $color-black;
+}
+
+.telegram-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: $color-text;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.stats-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-horizontal;
+  text-align: center;
+  border-bottom: 1px solid $color-border;
+}
+
+.stats-icon {
+  margin-bottom: $spacing-medium;
+}
+
+.stats-label {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-black;
+  margin-bottom: $spacing-small;
+}
+
+.stats-count {
+  font-size: $font-size-count;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  line-height: 1;
+}
+
+.platforms-section {
+  padding: $spacing-main $spacing-horizontal $spacing-horizontal;
+}
+
+.platforms-label {
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-gray;
+  margin-bottom: $spacing-medium;
+}
+
+.platforms-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.platform-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-medium 0;
+  border-bottom: 1px solid $color-border;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.platform-content {
+  display: flex;
+  align-items: center;
+  gap: $spacing-medium;
+}
+
+.platform-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.platform-name {
+  font-size: $font-size-base;
+  color: $color-text;
+  font-weight: $font-weight-bold;
+}
+
+.toggle-switch {
+  position: relative;
+  width: $toggle-width;
+  height: $toggle-height;
+  background: $color-toggle-bg;
+  border-radius: math.div($toggle-height, 2);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+
+  &.active {
+    background: $color-toggle-active;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: $toggle-circle-size;
+    height: $toggle-circle-size;
+    border-radius: 50%;
+    background: $color-white;
+    top: $toggle-circle-offset;
+    left: $toggle-circle-offset;
+    transition: left 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &.active::after {
+    left: calc(#{$toggle-width} - #{$toggle-circle-size} - #{$toggle-circle-offset});
+  }
+}
+

@@ -4,29 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>No Shorts</title>
-  <link rel="stylesheet" href="popup/popup.css">
 </head>
 <body>
-      <header class="header">
-        <h1 class="app-title" data-i18n="appName">No Shorts</h1>
-        <a href="https://t.me/valentderah" target="_blank" class="telegram-link" aria-label="Telegram">
-          <img src="popup/icons/telegram.svg" alt="Telegram" width="26" height="26">
-        </a>
-      </header>
-
-      <div class="stats-block">
-        <div class="stats-icon">
-          <img src="popup/icons/stats.svg" alt="Stats" width="80" height="80">
-        </div>
-        <div class="stats-label" data-i18n="popupBlocked">Blocked</div>
-        <div class="stats-count" id="blockedCount">0</div>
-      </div>
-
-      <div class="platforms-section">
-        <div class="platforms-label" data-i18n="popupPlatforms">Platforms</div>
-        <div class="platforms-list" id="platformsList"></div>
-      </div>
-  
+  <div id="root"></div>
   <script src="popup/popup.js"></script>
 </body>
 </html>

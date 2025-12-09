@@ -62,14 +62,6 @@
   "popupPlatforms": {
     "message": "Платформы",
     "description": "Метка платформы"
-  },
-  "popupTime": {
-    "message": "Раз",
-    "description": "раз (единственное число)"
-  },
-  "popupTimes": {
-    "message": "Раза",
-    "description": "раза (множественное число)"
   }
 }
 
